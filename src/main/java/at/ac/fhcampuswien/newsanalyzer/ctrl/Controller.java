@@ -1,24 +1,48 @@
 package at.ac.fhcampuswien.newsanalyzer.ctrl;
 
+import at.ac.fhcampuswien.newsapi.NewsApi;
+import at.ac.fhcampuswien.newsapi.NewsApiBuilder;
+import at.ac.fhcampuswien.newsapi.beans.Article;
+import at.ac.fhcampuswien.newsapi.beans.NewsResponse;
+import at.ac.fhcampuswien.newsapi.enums.Category;
+import at.ac.fhcampuswien.newsapi.enums.Country;
+import at.ac.fhcampuswien.newsapi.enums.Endpoint;
+import at.ac.fhcampuswien.newsapi.enums.Language;
+
+import java.util.List;
+
 public class Controller {
 
-	public static final String APIKEY = "myAPIKey";  //TODO add your api key
+	public static final String APIKEY = "444f194b0f8c4dce9a58789ed50a2555";  //TODO add your api key
 
-	public void process() {
+	public void process(String apiKey, String q, Endpoint endpoint, Country sourceCountry, Category sourceCategory, Language language) {
 		System.out.println("Start process");
 
-		//TODO implement Error handling
+		NewsApi newsApi = new NewsApiBuilder()
+				.setApiKey(apiKey)
+				.setQ(q)
+				.setEndPoint(endpoint)
+				.setSourceCountry(sourceCountry)
+				.setSourceCategory(sourceCategory)
+				.setLanguage(language)
+				.createNewsApi();
 
-		//TODO load the news based on the parameters
+		NewsResponse newsResponse = newsApi.getNews();
+		if (newsResponse != null) {
+			List<Article> articles = newsResponse.getArticles();
+			articles.stream().forEach(article -> System.out.println(article.toString()));
 
-		//TODO implement methods for analysis
+			//TODO implement Error handling
 
-		System.out.println("End process");
+			//TODO load the news based on the parameters
+
+			//TODO implement methods for analysis
+
+			System.out.println("End process");
+		}
 	}
-	
 
 	public Object getData() {
-		
 		return null;
 	}
 }
