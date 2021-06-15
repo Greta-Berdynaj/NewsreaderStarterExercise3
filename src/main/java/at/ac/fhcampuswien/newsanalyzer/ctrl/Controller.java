@@ -27,7 +27,12 @@ public class Controller {
 				.setLanguage(language)
 				.createNewsApi();
 
-		NewsResponse newsResponse = newsApi.getNews();
+		NewsResponse newsResponse = null;
+		try {
+			newsResponse = newsApi.getNews();
+		} catch (NewsApiException e) {
+			e.printStackTrace();
+		}
 		if (newsResponse != null) {
 			List<Article> articles = newsResponse.getArticles();
 			articles.stream().forEach(article -> System.out.println(article.toString()));

@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.newsapi;
 
 
+import at.ac.fhcampuswien.newsanalyzer.ctrl.NewsApiException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import at.ac.fhcampuswien.newsapi.beans.NewsResponse;
@@ -114,7 +115,7 @@ public class NewsApi {
         this.endpoint = endpoint;
     }
 
-    protected String requestData() {
+    protected String requestData() throws NewsApiException {
         String url = buildURL();
         System.out.println("URL: " + url);
         URL obj = null;
@@ -123,6 +124,7 @@ public class NewsApi {
         } catch (MalformedURLException e) {
             // TODO improve ErrorHandling
             e.printStackTrace();
+            throw new NewsApiException("Error with URL!");
         }
         HttpURLConnection con;
         StringBuilder response = new StringBuilder();
@@ -184,7 +186,7 @@ public class NewsApi {
         return sb.toString();
     }
 
-    public NewsResponse getNews() {
+    public NewsResponse getNews() throws NewsApiException {
         NewsResponse newsReponse = null;
         String jsonResponse = requestData();
         if(jsonResponse != null && !jsonResponse.isEmpty()){

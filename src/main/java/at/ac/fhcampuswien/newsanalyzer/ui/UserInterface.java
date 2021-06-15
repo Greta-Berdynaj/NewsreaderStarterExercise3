@@ -2,6 +2,7 @@ package at.ac.fhcampuswien.newsanalyzer.ui;
 
 
 import at.ac.fhcampuswien.newsanalyzer.ctrl.Controller;
+import at.ac.fhcampuswien.newsanalyzer.ctrl.NewsApiException;
 import at.ac.fhcampuswien.newsapi.NewsApi;
 import at.ac.fhcampuswien.newsapi.NewsApiBuilder;
 import at.ac.fhcampuswien.newsapi.enums.Category;
@@ -36,7 +37,7 @@ public class UserInterface
 		ctrl.process("444f194b0f8c4dce9a58789ed50a2555", "ball", Endpoint.TOP_HEADLINES, Country.at, Category.sports, Language.de);
 	}
 	
-	public void getDataForCustomInput() {
+	public void getDataForCustomInput(){
 		// TODO implement me
 
 		System.out.println("User Input");
@@ -51,7 +52,7 @@ public class UserInterface
 	}
 
 
-	public void start() {
+	public void start(){
 		Menu<Runnable> menu = new Menu<>("User Interface");
 		menu.setTitle("Wählen Sie aus:");
 		menu.insert("a", "Read about money", this::getDataFromCtrl1);
